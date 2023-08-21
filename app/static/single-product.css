@@ -1,0 +1,30 @@
+img{
+    /* display: flex; */
+    height: 600px;
+    width: 420px;
+    
+    margin: auto;
+
+}
+
+.product-div{
+    display: block;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: rgb(230, 230, 181);
+    margin: auto;
+    text-align: center;
+    
+}
+
+.details-div{
+    display: block;
+    margin: auto;
+    
+}
+
+.add{
+    /* display:flex; */
+    width: 6%;
+    align-self: flex-end;
+}

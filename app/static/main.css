@@ -1,0 +1,14 @@
+.thing_container{
+    height: 15%;
+    width:18%;
+    border:2px solid black
+}
+
+.white-font{
+    color: white
+}
+
+.flash-box{
+    background-color: rgb(255, 241, 52);
+    font-size: large;
+}

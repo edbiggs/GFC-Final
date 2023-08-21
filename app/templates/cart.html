@@ -1,0 +1,48 @@
+
+{% extends 'base.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{url_for('static',filename='cart.css')}}">
+{% endblock %}
+
+{% block content %}
+<h1 style="margin-left:1%">My Cart</h1>
+    {% for product in cart %}        
+        <div class="product-div">
+            <div class="details-div">
+                {{ product['name'] }} <br>
+                ----------------------------------------------------------
+            </div>
+            <div class="details-div">
+                {{ product['price'] }} <br>
+                ----------------------------------------------------------
+            </div>
+            <div class="details-div">
+                {{ product['description'] }} <br>
+                ----------------------------------------------------------
+            </div>
+            <div class="details-div">
+                {{ product['category'] }} <br>
+                ----------------------------------------------------------
+            </div>
+            <div>
+                <img src="{{ product['image'] }}", alt="sprite">
+            <div>
+                <a class="btn btn-primary remove" href="{{url_for('remove_product', id = product['id'] )}}">Remove</a>
+            </div>    
+            </div>
+        <div class="details-div">
+            {{ product['rating'] }}
+        </div>
+            
+        </div>
+            <br>
+            <br>
+            <br>
+    {%  endfor %}   
+    </div>  
+{% endblock %} 
+
+{% block content_alt %}
+{% endblock %}
+        

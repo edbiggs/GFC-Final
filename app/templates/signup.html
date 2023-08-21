@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{url_for('static',filename='signup.css')}}">
+{% endblock %}
+
+{% block content %}
+<h1 class="white-font" style="margin-left: 5%; margin-top: 5%;">
+    You are already logged in!
+</h1>
+{% endblock %}
+
+{% block content_ua %}
+    <h1 class="white-font" style="margin-left: 5%; margin-top: 5%;">
+        Enter Username, Password, and Email:
+    </h1>
+    <form class="col-3 border p-3 rounded sign-in-form" method="POST">
+        {{ form.hidden_tag() }}
+
+        {{ form.username (class='form-control', placeholder='Username') }}
+        {{ form.password (class= 'form-control', placeholder='Password') }}
+        {{ form.confirm_password (class='form-control', placeholder='Confirm Password')}}
+        {{ form.email (class='form-control', placeholder='Email') }}
+        {{ form.submit (class='form-control', class = 'btn btn-primary') }}
+    </form>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='lookup.css')}}">
+{% endblock %}
+
+{% block content %}
+<h2 style="margin-left: 5%; margin-top: 5%;">
+    Van History
+</h2>
+
+    {% block scripts %}
+    <div id="table"></div>
+    <script>
+
+        const tableDiv = document.getElementById('table');
+
+        const editableCellAttributes = (data, row, col) => {
+          if (row) {
+            return {contentEditable: 'true', 'data-element-id': row.cells[0].data};
+          }
+          else {
+            return {};
+          }
+      };
+
+        new gridjs.Grid({
+        columns: [
+           
+          { id: 'database_id', name: 'ID'},
+          { id: 'van_number', name: 'Van #', 'attributes':editableCellAttributes},
+          { id: 'milage', name: 'Last Milage' },
+          { id: 'last_oil_change_date', name: 'Last Oil Change' },
+          { id: 'last_oil_change_milage', name: 'Last Oil Change(Mi)' }, 
+          { id: 'last_front_tire_change_date', name: 'Last Front Tire Change' },
+          { id: 'last_rear_tire_change_date', name: 'Last Rear Tire Change' },
+          { id: 'last_trans_fluid_change_milage', name: 'Last Trans Flush(Mi)' },
+          { id: 'last_battery_change_date', name: 'Last Battery Change' },
+          { id: 'last_air_filter_change_milage', name: 'Last Air Filter Change(Mi)' },
+          { id: 'last_spark_plug_change_milage', name: 'Last Spark Plug Change(Mi)' },
+          { id: 'last_coil_change_milage', name: 'Last Coil Change(Mi)' },
+          { id: 'last_state_inspection_date', name: 'Last State Inspection' },
+          { id: 'last_emissions_date', name: 'Last Registration Renewal' },
+          { id: 'last_front_brake_change_milage', name: 'Last Front Brake Change(Mi)' },
+          { id: 'last_rear_brake_change_milage', name: 'Last Rear Brake Change(Mi)' },
+          { id: 'plate', name: 'Plate #' },
+          { id: 'vin', name: 'VIN #' },
+          { id: 'model', name: 'Model' },
+          { id: 'notes', name: 'Notes' },
+          { id: 'active', name: 'Active' },
+            
+        ],
+
+        server: {
+          url: '/data',
+          then: results => results.data,
+        },
+        
+        search: true,
+        sort: true,
+        pagination: true,
+      }).render(tableDiv);
+
+      let savedValue;
+
+      tableDiv.addEventListener('focusin', e => {
+        console.log(e.path)
+        console.log(e.target)
+        if (e.target.tagName === 'TD') {
+          savedValue = e.target.textContent;
+          console.log(savedValue)
+        }
+      });
+
+      tableDiv.addEventListener('focusout', e => {
+        if (e.target.tagName === 'TD') {
+          if (savedValue !== e.target.textContent) {
+            fetch('/data', {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                id: e.composedPath()[1].children[0].textContent,
+                [e.target.dataset.columnId]: e.target.textContent
+              }),
+            });
+          }
+          savedValue = undefined;
+        }
+      });
+
+      tableDiv.addEventListener('keydown', e => {
+        if (e.target.tagName === 'TD') {
+          if (e.key === 'Escape') {
+            e.target.textContent = savedValue;
+            console.log('escape!')
+            e.target.blur();
+          }
+          else if (e.key === 'Enter') {
+            e.preventDefault();
+            console.log('enter!')
+            e.target.blur();
+          }
+        }
+      });
+    </script>
+ 
+    {%endblock%}
+        
+    {% endblock %}
+    {% block content_ua %}
+    
+{% endblock %}

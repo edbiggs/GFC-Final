@@ -1,0 +1,50 @@
+body{
+    background-image: url("#");
+    background-size: 100%;
+}
+
+.flexbox_container{
+    display: flex;
+    height: 400px;
+    width: 40%;
+    /* border: 3px solid white; */
+
+}
+
+.flexbox_search_result{
+    display: flex;
+    align-self:center;
+    margin-left: 30%;
+    margin-top: 2%;
+    height: 90%;
+    width: 70%;
+    background-color: white;
+}
+
+.add{
+    display: flex;
+    align-self: flex-end;
+
+}
+
+.sprite_div{
+    display:flex;
+    flex-grow: 1;
+}
+
+.lookup_prompt{
+    text-align: center;
+    margin-top: 6%;
+    color: white;
+}
+
+.white-font{
+    color: white
+}
+
+.sign-in-form{
+    display: block;
+    margin-left: 16%;
+    margin-top: 2%;
+    margin-right: 65%;
+}

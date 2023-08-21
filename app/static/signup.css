@@ -1,0 +1,10 @@
+body{
+    background-image: url("#");
+    background-size: 100%;
+}
+
+.sign-in-form{
+    display: block;
+    margin-left: 14%;
+    margin-top: 2%;
+}

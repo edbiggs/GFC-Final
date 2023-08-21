@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{url_for('static',filename='single-product.css')}}">
+{% endblock %}
+
+{% block content %}
+    <h1  style="margin-left: 1%;">
+
+    </h1>
+            
+            <div class="product-div">
+                <div class="details-div">
+                    <p>Product ID: {{ product['id'] }}</p>
+                    {{ product['name'] }} <br>
+
+                    ----------------------------------------------------------
+                </div>
+                <div class="details-div">
+                    {{ product['price'] }} <br>
+                    ----------------------------------------------------------
+                </div>
+                <div class="details-div">
+                    {{ product['description'] }} <br>
+                    ----------------------------------------------------------
+                </div>
+                <div class="details-div">
+                    {{ product['category'] }} <br>
+                    ----------------------------------------------------------
+                </div>
+                <div class="details-div">
+                    <img src="{{ product['image'] }}", alt="sprite">
+                <div>
+                    <a class="btn btn-primary add" href="{{url_for('add_product', new_product_id = product['id'] )}}">Add To Cart</a>
+                </div>    
+                </div>
+            <div class="details-div">
+                <p> Rating: {{ product['rating'] }} </p>
+            </div>
+                
+            </div>
+                <br>
+                <br>
+                <br>
+    
+{% endblock %}
+
+    {% block content_ua %}
+        <h1 style="margin-left: 5%; margin-top: 5%;">
+            
+        </h1>
+    {% endblock %}
+

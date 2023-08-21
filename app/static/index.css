@@ -1,0 +1,14 @@
+body{
+    background-image: url("#");
+    background-size: 100%;
+}
+
+.white-font{
+    color: white
+}
+
+.sign-in-form{
+    display: flex;
+    margin: auto;
+    margin-top: 2%;
+}

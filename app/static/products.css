@@ -1,0 +1,22 @@
+img{
+    display: flex;
+    height: 350px;
+    width: 245px;
+    background-color: rgb(172, 204, 236);
+}
+
+.product-div{
+
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: rgb(172, 204, 236);
+}
+
+.details-div{
+
+}
+
+.add{
+    display:flex;
+    width: 6%;
+}
