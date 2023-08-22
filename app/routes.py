@@ -8,7 +8,8 @@ from .models import User, Van, db
 from werkzeug.security import check_password_hash
 from urllib.parse import urlencode
 import pandas as pd
-
+from datetime import timedelta, datetime as dt
+from dateutil import parser
 
 data = pd.read_csv('van_data.csv', index_col=0)
 data_dict = data.to_dict()
@@ -183,6 +184,7 @@ def vans_page():
     # print(len(active))
     # print([i for i in range(len(van_info))])
 
+
     if Van.query.all() == []:
         for i in van_count:
 
@@ -249,9 +251,9 @@ def get_data():
 @app.route('/data', methods=['POST'])
 def update():
     data = request.get_json()
-    if 'id' not in data:
+    if 'van_number' not in data:
         return 'error: van info not found'
-    van = Van.query.get(data['id'])
+    van = Van.query.get(data['van_number'])
 
     for field in ['van_number',
                 'milage',
@@ -282,7 +284,12 @@ def update():
 @app.route('/work_needed')
 def work_needed():
     work_dict = {}
+    
+    vans = [van for van in Van.query.order_by(Van.van_number)]
+    for van in vans:
+        if van.milage - van.last_oil_change_milage >= 7500 or (dt.now().date() - van.last_oil_change_date).days >= 365:
+            work_dict[van.van_number] = f'Oil change required: {van.milage - van.last_oil_change_milage} miles, {(dt.now().date() - van.last_oil_change_date).days} days since last oil change'
+    print(work_dict)
+                
 
-    vans = [van for van in Van.query.all()]
-    print([van.milage for van in vans])
     return render_template('vans.html')
