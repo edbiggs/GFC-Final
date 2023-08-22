@@ -279,32 +279,10 @@ def update():
     return '', 204
 
 
-# vans=vans, last_milage=last_milage, last_oil_change_milage=last_oil_change_milage, last_oil_change_date=last_oil_change_date, last_front_tire_change_date=last_front_tire_change_date, last_rear_tire_change_date=last_rear_tire_change_date, last_trans_fluid_change_milage=last_trans_fluid_change_milage, last_battery_change_date=last_battery_change_date, last_air_filter_change_milage=last_air_filter_change_milage, last_spark_plug_change_milage=last_spark_plug_change_milage, last_coil_change_milage=last_coil_change_milage, last_state_inspection_date=last_state_inspection_date, last_emissions_date=last_emissions_date, last_front_brake_change_milage=last_front_brake_change_milage, last_rear_brake_change_milage=last_rear_brake_change_milage, plate=plate, vin=vin, model=model, notes=notes, active=active, van_count=van_count
+@app.route('/work_needed')
+def work_needed():
+    work_dict = {}
 
-
-# data: [
-#           {% for i in van_count %}
-#             {
-#               van_number: '{{ vans[i] }}',
-#               milage: '{{ last_milage[i] }}',
-#               last_oil_change_date: '{{ last_oil_change_date[i] }}',
-#               last_oil_change_milage: '{{ last_oil_change_milage[i] }}',
-#               last_front_tire_change_date: '{{ last_front_tire_change_date[i] }}',
-#               last_rear_tire_change_date: '{{ last_rear_tire_change_date[i] }}',
-#               last_trans_fluid_change_milage: '{{ last_trans_fluid_change_milage[i] }}',
-#               last_battery_change_date: '{{ last_battery_change_date[i] }}',
-#               last_air_filter_change_milage: '{{ last_air_filter_change_milage[i] }}',
-#               last_spark_plug_change_milage: '{{ last_spark_plug_change_milage[i] }}',
-#               last_coil_change_milage: '{{ last_coil_change_milage[i] }}',
-#               last_state_inspection_date: '{{ last_state_inspection_date[i] }}',
-#               last_emissions_date: '{{ last_emissions_date[i] }}',
-#               last_front_brake_change_milage: '{{ last_front_brake_change_milage[i] }}',
-#               last_rear_brake_change_milage: '{{ last_rear_brake_change_milage[i] }}',
-#               plate: '{{ plate[i] }}',
-#               vin: '{{ vin[i] }}',
-#               model: '{{ model[i] }}',
-#               notes: '{{ notes[i] }}',
-#               active: '{{ active[i] }}',
-#             },
-#           {% endfor %}
-#         ],
+    vans = [van for van in Van.query.all()]
+    print([van.milage for van in vans])
+    return render_template('vans.html')
