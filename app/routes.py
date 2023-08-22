@@ -283,13 +283,14 @@ def update():
 
 @app.route('/work_needed')
 def work_needed():
-    work_dict = {}
-    
     vans = [van for van in Van.query.order_by(Van.van_number)]
-    for van in vans:
-        if van.milage - van.last_oil_change_milage >= 7500 or (dt.now().date() - van.last_oil_change_date).days >= 365:
-            work_dict[van.van_number] = f'Oil change required: {van.milage - van.last_oil_change_milage} miles, {(dt.now().date() - van.last_oil_change_date).days} days since last oil change'
-    print(work_dict)
+    work_needed = {van.van_number:[] for van in vans}
+ 
+    for i in range(len(vans)):
+        if vans[i].milage - vans[i].last_oil_change_milage >= 7500 or (dt.now().date() - vans[i].last_oil_change_date).days >= 365:
+            work_needed[vans[i].van_number].append(f'Oil change required: {vans[i].milage - vans[i].last_oil_change_milage} miles and {(dt.now().date() - vans[i].last_oil_change_date).days} days since last oil change')
+    print(work_needed)
+
                 
 
     return render_template('vans.html')
