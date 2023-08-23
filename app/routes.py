@@ -287,7 +287,6 @@ def work_needed():
     work_needed = {van.van_number:[] for van in vans}
     d = dt.now().date()
 
-    work_needed[28].append('something')
 
     for i in range(len(vans)):
         print((d - vans[i].last_registration_renewal_date).days > 760)
@@ -305,13 +304,13 @@ def work_needed():
             
         # checks if more than 6 years have passed since last battery change
         if (d - vans[i].last_battery_change_date).days >= 1825:
-            work_needed[vans[i].van_number].append(f'Check battery: {round(((d - vans[i].last_battery_change_date).days)/365, 1)} years since last')
+            work_needed[vans[i].van_number].append(f'Check battery: {round(((d - vans[i].last_battery_change_date).days)/365, 1)} years since last change')
             
         # checks if more than 30,000 miles have been driven since last air filter change
         if vans[i].milage - vans[i].last_air_filter_change_milage >= 30000:
             work_needed[vans[i].van_number].append(f'Check air filter: {vans[i].milage - vans[i].last_air_filter_change_milage} miles since last change')
             
-        #  checks if more than 97,500 miles have been driven since last time spark plugs or coil packs were changed. Yes, 97,500 miles exactly. if you take it to 98,000 you might as well throw the whole thing away.
+        # checks if more than 97,500 miles have been driven since last time spark plugs or coil packs were changed. Yes, 97,500 miles exactly. if you take it to 98,000 you might as well throw the whole thing away.
         if vans[i].milage - vans[i].last_spark_plug_change_milage >= 97500 or vans[i].milage - vans[i].last_coil_change_milage >= 97500:
             work_needed[vans[i].van_number].append(f'Monitor spark plugs and coils: {vans[i].milage - vans[i].last_spark_plug_change_milage} miles since last change')
             
@@ -326,9 +325,17 @@ def work_needed():
         #checks if I procrastinated too long and now it's too late
         if (d - vans[i].last_registration_renewal_date).days > 760:
             work_needed[vans[i].van_number].append(f'Registration EXPIRED: Emissions test required')
-           
+
+        # checks if the current month is the expiration month of the van's state inspection
+        if (d - vans[i].last_state_inspection_date).days >= 365 and (d - vans[i].last_state_inspection_date).days < 395:
+            work_needed[vans[i].van_number].append(f'State inspection due THIS month')
+            
+        #checks if I procrastinated too long and now it's too late
+        if (d - vans[i].last_state_inspection_date).days > 395:
+            work_needed[vans[i].van_number].append(f'State inspection EXPIRED')
+        
+        
+        
         print(work_needed)
 
-                
-
-    return render_template('vans.html')
+    return render_template('work_needed.html', work_needed=work_needed)

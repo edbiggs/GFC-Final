@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static',filename='work_needed.css')}}">
+
+{% endblock %}
+
+{% block content %}
+<h2 style="margin-left: 5%; margin-top: 5%;">
+    efvewfvwv
+</h2>
+
+    {% block scripts %}
+        {% for van,work in work_needed.items() %}
+        <div class="work-div">
+            <h4>
+                {{van}}:
+            </h4>
+            {% for w in work %}
+            {% if w != [] %}
+            <p class="work-p">{{w}}</p>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+        {% endfor %}
+    {%endblock%}
+        
+    {% endblock %}
+    {% block content_ua %}
+    
+{% endblock %}

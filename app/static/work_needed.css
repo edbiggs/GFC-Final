@@ -1,0 +1,20 @@
+.work-div{
+    border:1px solid grey;
+    border-radius: 15px;
+    padding:1% 1% 1% 1%;
+    margin:1% 1% 1% 1%;
+
+}
+.work-div:nth-of-type(odd){
+    border:1px solid grey;
+    border-radius: 15px;
+    background-color: antiquewhite;
+    padding:1% 1% 1% 1%;
+    margin:1% 1% 1% 1%;
+}
+
+.work-p{
+    font-size: 110%;
+    
+    
+}
