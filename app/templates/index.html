@@ -4,87 +4,21 @@
 <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
 {% endblock %}
 
-<!-- {% if current_user.is_authenticated %} -->
+
 {% block content %}
 
-<table id="data" class="table table-striped">
-    <thead>
-        <tr>
-            <!-- <th>id</th> -->
-            <th>van_number</th>
-            <th>milage</th>
-            <th>last_oil_change_milage</th>
-            <th>last_oil_change_date</th>
-            <th>last_front_tire_change_date</th>
-            <th>last_rear_tire_change_date</th>
-            <th>last_trans_fluid_change_milage</th>
-            <th>last_battery_change_milage</th>
-            <th>last_air_filter_change_milage</th>
-            <th>last_spark_plug_change_milage</th>
-            <th>last_coil_change_milage</th>
-            <th>last_state_inspection_date</th>
-            <th>last_registration_renewal_date</th>
-            <th>last_front_brake_change_milage</th>
-            <th>last_rear_brake_change_milage</th>
-            <th>plate</th>
-            <th>vin</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for van in vans %}
-   
+
         
-        <tr>
 
-            <td>{{van[0]}}</td>
-            <td>{{van[1][0]}}</td>
-            <td>{{van[1][1]}}</td>
-            <td>{{van[1][2]}}</td>
-            <td>{{van[1][3]}}</td>
-            <td>{{van[1][4]}}</td>
-            <td>{{van[1][5]}}</td>            
-            <td>{{van[1][6]}}</td>
-            <td>{{van[1][7]}}</td>           
-            <td>{{van[1][8]}}</td>
-            <td>{{van[1[9]]}}</td>
-            <td>{{van[1[10]]}}</td>
-            <td>{{van[1][12]}}</td>
-            <td>{{van[1][13]}}</td>
-            <td>{{van[1][14]}}</td>
-            <td>{{van[1][15]}}</td>
-            <td>{{van[1][16]}}</td>
-
-        </tr>
-
-        {% endfor %}
-    </tbody>
-</table>
 
 
 {% endblock %}
 
 {% block content_alt %}
 
-<h1 class="white-font" style="text-align: center;">
-    Welcome! Please log in:
-</h1> 
-<div>
-    <form class="col-3 border p-3 rounded sign-in-form" method="POST">
-        {{ form.hidden_tag() }}
-
-        {{ form.username (class='form-control', placeholder='Username') }}
-        {{ form.password (class= 'form-control', placeholder='Password') }}
-        {{ form.submit (class='form-control',class = 'btn btn-primary') }}
-    </form>
-</div>
 
 {% endblock %}
-<!-- {% endif %} -->
-{% block scripts %}
-    <script>
-        $(document).ready(function () {
-            $('#data').DataTable();
-        })
-    </script>
 
+{% block scripts %}
+   <div class="date-div">{{date}}</div>
 {% endblock %}

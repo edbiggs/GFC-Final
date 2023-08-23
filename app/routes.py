@@ -24,7 +24,7 @@ def home_page():
 
     print(Van.query.all())
 
-    return render_template('index.html', tables=[df.to_html()], titles=[''], vans=df_rows)
+    return render_template('index.html', date = dt.now().date().strftime('%A, %b %d %Y '))
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -238,6 +238,14 @@ def vans_page():
 
     return render_template('vans.html', data=data)
 
+# @app.route('/van/<van_number>')
+# def get_van(van_number):
+#     van = Van.query.get(van_number)
+#     return render_template(van=van.to_dict())
+
+# @app.context_processor
+# def inject_vans():
+#     pass
 
 @app.route('/data', methods=["GET"])
 def get_data():

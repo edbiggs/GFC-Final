@@ -12,3 +12,7 @@ body{
     margin: auto;
     margin-top: 2%;
 }
+
+.date-div{
+    text-align: center;font-size: 210%;
+}
