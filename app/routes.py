@@ -4,27 +4,71 @@ from .forms import SignUpForm, LoginForm, SearchForm, AddForm
 import requests
 import json
 from flask_login import login_user, logout_user, login_required, current_user
-from .models import User, Van, db
+from .models import User, Van, Menu, CurrentDate, db
 from werkzeug.security import check_password_hash
 from urllib.parse import urlencode
 import pandas as pd
 from datetime import timedelta, datetime as dt
 from dateutil import parser
 
-data = pd.read_csv('van_data.csv', index_col=0)
-data_dict = data.to_dict()
-df = pd.DataFrame(data_dict)
-df_rows = df.iterrows()
+van_data = pd.read_csv('van_data.csv', index_col=0)
+van_data_dict = van_data.to_dict()
 
-van_info = [row for row in df_rows]
+df = pd.DataFrame(van_data_dict)
+van_df_rows = df.iterrows()
+
+van_info = [row for row in van_df_rows]
+
+meal_data = pd.read_csv('meal_pattern.csv', index_col=0)
+meal_dict = [meal for meal in meal_data.to_dict().values()]
+
+meal_meals = [meal for meal in meal_dict[0].keys()]
+meal_add_ons = [item for item in meal_dict[0].values()]
+
+
+print(meal_add_ons[0])
 
 
 @app.route('/', methods=["GET", "POST"])
 def home_page():
+    # meal_list = []
+    # driver_add_on_list = []
 
-    print(Van.query.all())
 
-    return render_template('index.html', date = dt.now().date().strftime('%A, %b %d %Y '))
+    # meal_count = len(meal_meals)
+                       
+    # for i in range(meal_count):
+    #     meal_list.append(meal_meals[i])
+    #     driver_add_on_list.append(meal_add_ons[i])
+
+    # if Menu.query.all() == []:
+    #     for i in range(meal_count):
+    #         Menu.meal = meal_list[i]
+    #         Menu.driver_add_ons= driver_add_on_list[i]
+
+    #         meal = Menu(Menu.meal,Menu.driver_add_ons)
+
+    #         db.session.add(meal)
+    #         db.session.commit()
+
+    d = str(dt.now().date().strftime('%A, %b %d %Y '))
+    # counter = 22
+    # print(db.session.query(CurrentDate.date).first())
+   
+    # saved_date = db.session.query(CurrentDate.date).first()
+
+    # if  saved_date != d or saved_date == None: 
+    #     CurrentDate.date = d
+    #     db.session.commit()
+    #     if counter < meal_count:
+    #         counter +=1
+    #     else:
+    #         counter = 0
+
+    # todays_meal = meal_list[counter]
+    # todays_add_ons = driver_add_on_list[counter]
+    # todays_add_ons = todays_add_ons, todays_meal=todays_meal
+    return render_template('index.html', date = d)
 
 
 @app.route('/login', methods=["GET", "POST"])
@@ -347,3 +391,15 @@ def work_needed():
         print(work_needed)
 
     return render_template('work_needed.html', work_needed=work_needed)
+
+# @app.route('/meal_pattern')
+# def get_meal():
+#     meal_data = pd.read_csv('meal_pattern.csv', index_col=0)
+#     meal_data_dict = meal_data.to_dict()
+#     meal_df = pd.DataFrame(meal_data_dict)
+#     meal_df_rows = meal_df.iterrows()
+
+#     meal_info = [row for row in meal_df_rows]
+
+#     print(meal_info[0])
+#     return meal_info

@@ -101,8 +101,18 @@ class Van(db.Model):
 
 class Menu(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)
-    food = db.Column(db.VARCHAR)
+    meal = db.Column(db.VARCHAR)
     driver_add_ons = db.Column(db.VARCHAR)
+
+    def __init__(self,meal, driver_add_ons):
+        self.meal = meal,
+        self.driver_add_ons = driver_add_ons
+
+
+class CurrentDate(db.Model):
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+    date = db.Column(db.VARCHAR)
+ 
 
 
     
