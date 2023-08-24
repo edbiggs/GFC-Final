@@ -1,3 +1,9 @@
 body{
     opacity:0.9
 }
+
+
+
+.gridjs-table{
+    min-width: 100%;
+}

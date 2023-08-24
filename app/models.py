@@ -98,3 +98,11 @@ class Van(db.Model):
             'notes':self.notes,    
             'active':self.active,     
         }
+
+class Menu(db.Model):
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+    food = db.Column(db.VARCHAR)
+    driver_add_ons = db.Column(db.VARCHAR)
+
+
+    
