@@ -1,10 +1,13 @@
 body{
-    background-image: url("#");
+    background-image: url("images/cutting-board1.avif");
     background-size: 100%;
+    opacity:0.7
 }
 
+
 .white-font{
-    color: white
+    color: white;
+    font-family: serif;
 }
 
 .sign-in-form{
@@ -14,5 +17,9 @@ body{
 }
 
 .date-div{
-    text-align: center;font-size: 210%;
+    margin-left: 8%;
+    margin-top: 2%;
+    font-size: 210%;
+
 }
+
