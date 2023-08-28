@@ -10,6 +10,8 @@ from urllib.parse import urlencode
 import pandas as pd
 from datetime import timedelta, datetime as dt
 from dateutil import parser
+from sqlalchemy.sql import text
+
 
 van_data = pd.read_csv('van_data.csv', index_col=0)
 van_data_dict = van_data.to_dict()
@@ -21,54 +23,62 @@ van_info = [row for row in van_df_rows]
 
 meal_data = pd.read_csv('meal_pattern.csv', index_col=0)
 meal_dict = [meal for meal in meal_data.to_dict().values()]
-
+# I've run out of names
 meal_meals = [meal for meal in meal_dict[0].keys()]
 meal_add_ons = [item for item in meal_dict[0].values()]
 
 
-print(meal_add_ons[0])
+
 
 
 @app.route('/', methods=["GET", "POST"])
 def home_page():
-    # meal_list = []
-    # driver_add_on_list = []
+    meal_list = []
+    driver_add_on_list = []
 
 
-    # meal_count = len(meal_meals)
+    meal_count = len(meal_meals)
                        
-    # for i in range(meal_count):
-    #     meal_list.append(meal_meals[i])
-    #     driver_add_on_list.append(meal_add_ons[i])
+    for i in range(meal_count):
+        meal_list.append(meal_meals[i])
+        driver_add_on_list.append(meal_add_ons[i])
 
-    # if Menu.query.all() == []:
-    #     for i in range(meal_count):
-    #         Menu.meal = meal_list[i]
-    #         Menu.driver_add_ons= driver_add_on_list[i]
+    if Menu.query.all() == []:
+        for i in range(meal_count):
+            Menu.meal = meal_list[i]
+            Menu.driver_add_ons= driver_add_on_list[i]
 
-    #         meal = Menu(Menu.meal,Menu.driver_add_ons)
+            meal = Menu(Menu.meal,Menu.driver_add_ons)
 
-    #         db.session.add(meal)
-    #         db.session.commit()
+            db.session.add(meal)
+            db.session.commit()
 
-    d = str(dt.now().date().strftime('%A, %b %d %Y '))
-    # counter = 22
-    # print(db.session.query(CurrentDate.date).first())
-   
-    # saved_date = db.session.query(CurrentDate.date).first()
+    current_date = dt.now().date().strftime('%A, %b %d %Y ')
+    
+    counter = 0
+    print(current_date)
 
-    # if  saved_date != d or saved_date == None: 
-    #     CurrentDate.date = d
-    #     db.session.commit()
-    #     if counter < meal_count:
-    #         counter +=1
-    #     else:
-    #         counter = 0
+    saved_date = db.session.query(CurrentDate.date).first()
 
-    # todays_meal = meal_list[counter]
-    # todays_add_ons = driver_add_on_list[counter]
-    # todays_add_ons = todays_add_ons, todays_meal=todays_meal
-    return render_template('index.html', date = d)
+    if saved_date != None:
+        saved_date = saved_date[0]
+
+        print(saved_date)
+
+    if saved_date != current_date or saved_date == None:
+        CurrentDate.date = current_date
+        new_date = CurrentDate(CurrentDate.date)
+        db.session.add(new_date)
+        db.session.commit()
+        if counter < meal_count:
+            counter +=1
+        else:
+            counter = 0
+
+    todays_meal = meal_list[counter]
+    todays_add_ons = driver_add_on_list[counter]
+    
+    return render_template('index.html', date = current_date, todays_add_ons = todays_add_ons, todays_meal=todays_meal)
 
 
 @app.route('/login', methods=["GET", "POST"])

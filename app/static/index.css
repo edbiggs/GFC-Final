@@ -20,10 +20,51 @@ body{
     margin-left: 8%;
     margin-top: 2%;
     font-size: 210%;
+    padding-bottom: 3%;
 
+}
+
+.flex-container{
+    display: flex;
+    padding: 3% 0% 0% 6%;
+    flex-direction: column;
+    /* border: 2px solid black; */
+    border-radius: 5px;
+    height: 700px
+}
+
+.flex-box{
+    display: flex;
+    /* border: 2px solid black; */
+    border-radius: 10px;
+    flex-direction: column;
+    min-width: 520px;
+    width: fit-content;
+    text-align: center;
+    height: 100%;
+    padding-top: 2%;
+    background-image: radial-gradient(farthest-corner at 60% 40%,   rgba(133, 86, 21, .9) 15%,rgba(51, 26, 6, .8)83%, rgba(255,255,255,1) 200%);
+    background-color: 
 }
 
 .meal-div{
-    
+    display: flex;
+    /* border: 2px solid black; */
+    font-size: 250%;
+    text-align: center;
+    align-self: center;
+
 }
+
+.add-ons-div{
+    display: flex;
+    /* border: 2px solid black; */
+    font-size: 150%;
+    align-self: center;
+    margin-top: 0%;
+
+
+}
+
+
 

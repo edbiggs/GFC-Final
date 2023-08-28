@@ -20,7 +20,16 @@
 {% endblock %}
 
 {% block scripts %}
-   <div class="date-div white-font">{{date}}</div>
-   <div class="meal-div white-font">{{todays_meal}}</div>
-   <div class="add-ons-div white-font">{{todays_add_ons}}</div>
+   
+   <div class='flex-container'>
+    <div class="date-div white-font">{{date}}</div>
+        <div class="flex-box">
+            <p class="white-font" style="font-size: 300%; ">Today's Meal: </p>
+            <div class="meal-div white-font">{{todays_meal}}</div>
+            <p class="white-font" style="font-size: 230%; ">w/</p>
+            <div class="add-ons-div white-font">{{todays_add_ons}}</div>
+        </div>
+        
+   </div>
+   
 {% endblock %}

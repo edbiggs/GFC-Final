@@ -111,7 +111,12 @@ class Menu(db.Model):
 
 class CurrentDate(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)
-    date = db.Column(db.VARCHAR)
+    date = db.Column(db.Text)
+
+    def __init__(self,date):
+        self.date = date
+
+
  
 
 
