@@ -1,21 +1,25 @@
 body{
-    opacity:0.9
+    background-image: url("images/parts.jpeg");
+    background-size: 100%;
+    background-attachment: fixed;
+    opacity:1;
 }
 
 
 .work-div{
     border:1px solid grey;
     border-radius: 15px;
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(235, 235, 235, .9);
     padding:1% 1% 1% 1%;
     margin:1% 1% 1% 1%;
     width: 40%;
+    
 
 }
 .work-div:nth-of-type(odd){
     border:1px solid grey;
     border-radius: 15px;
-    background-color: antiquewhite;
+    background-color: rgba(61, 111, 156, .965);
     padding:1% 1% 1% 1%;
     margin:1% 1% 1% 1%;
 }
