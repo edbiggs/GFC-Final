@@ -9,6 +9,7 @@ body{
     background-color: rgb(255, 255, 255);
     padding:1% 1% 1% 1%;
     margin:1% 1% 1% 1%;
+    width: 40%;
 
 }
 .work-div:nth-of-type(odd){

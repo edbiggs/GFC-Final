@@ -35,7 +35,7 @@ body{
 
 .flex-box{
     display: flex;
-    /* border: 2px solid black; */
+    border: 2px outset antiquewhite;
     border-radius: 10px;
     flex-direction: column;
     min-width: 520px;

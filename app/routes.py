@@ -56,18 +56,21 @@ def home_page():
     current_date = dt.now().date().strftime('%A, %b %d %Y ')
     
     counter = 0
-    print(current_date)
+    print(f'Current date: {current_date}')
 
-    saved_date = db.session.query(CurrentDate.date).first()
+    saved_date = CurrentDate.query.first()
 
     if saved_date != None:
-        saved_date = saved_date[0]
+        saved_date = saved_date
 
-        print(saved_date)
+        print(f'Saved date: {saved_date}')
+
+    print(saved_date != current_date)
 
     if saved_date != current_date or saved_date == None:
         CurrentDate.date = current_date
         new_date = CurrentDate(CurrentDate.date)
+        print(new_date)
         db.session.add(new_date)
         db.session.commit()
         if counter < meal_count:
@@ -313,10 +316,11 @@ def get_data():
 @app.route('/data', methods=['POST'])
 def update():
     data = request.get_json()
-    if 'van_number' not in data:
+    print(data)
+    if 'id' not in data:
         return 'error: van info not found'
-    van = Van.query.get(data['van_number'])
-
+    van = Van.query.get(data['id'])
+    print(van)
     for field in ['van_number',
                 'milage',
                 'last_oil_change_milage',
@@ -340,6 +344,7 @@ def update():
         if field in data:
             setattr(van, field, data[field])
     db.session.commit()
+    print('Updated')
     return '', 204
 
 
