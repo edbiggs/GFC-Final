@@ -10,7 +10,7 @@ from urllib.parse import urlencode
 import pandas as pd
 from datetime import timedelta, datetime as dt
 from dateutil import parser
-from sqlalchemy.sql import text
+from sqlalchemy.sql import text, desc
 
 
 van_data = pd.read_csv('van_data.csv', index_col=0)
@@ -23,7 +23,7 @@ van_info = [row for row in van_df_rows]
 
 meal_data = pd.read_csv('meal_pattern.csv', index_col=0)
 meal_dict = [meal for meal in meal_data.to_dict().values()]
-# I've run out of names
+# I've run out of names, meal_meals is the final list for iterating through 
 meal_meals = [meal for meal in meal_dict[0].keys()]
 meal_add_ons = [item for item in meal_dict[0].values()]
 
@@ -33,9 +33,10 @@ meal_add_ons = [item for item in meal_dict[0].values()]
 
 @app.route('/', methods=["GET", "POST"])
 def home_page():
+
+    # Imports menu data and saves it to PostGreSQLfor
     meal_list = []
     driver_add_on_list = []
-
 
     meal_count = len(meal_meals)
                        
@@ -53,12 +54,13 @@ def home_page():
             db.session.add(meal)
             db.session.commit()
 
+    # Creates a date counter; moves the current meal on the home page forward by one day each time the app is run and the date has changed
     current_date = dt.now().date().strftime('%A, %b %d %Y ')
     
     counter = 0
     print(f'Current date: {current_date}')
 
-    saved_date = CurrentDate.query.first()
+    saved_date = CurrentDate.query.order_by(desc(CurrentDate.id))
 
     if saved_date != None:
         saved_date = saved_date
@@ -86,6 +88,8 @@ def home_page():
 
 @app.route('/login', methods=["GET", "POST"])
 def login_page():
+
+    #Login page must be routed to from every entry point; must use sole admin account to access the app (I haven't done this yet)
     form = LoginForm()
     if request.method == "POST":
         if form.validate():
@@ -116,6 +120,7 @@ def logout_page():
 @app.route('/vans/', methods=["GET", "POST"])
 def vans_page():
 
+    #Creates lists to save 
     van_count = range(len(van_info))
 
     vans = []
@@ -200,6 +205,7 @@ def vans_page():
         active.append(van_info[i][1][18])
 
     # WHY IS INDEX OUT OF RANGE?!
+    # RESOLVED: But keeping this code in case of future issues that require viewing the lists
     # print(len(vans))
 
     # print(len(last_milage))
@@ -243,6 +249,8 @@ def vans_page():
 
 
     if Van.query.all() == []:
+
+        #If no info in database, save current info from spreadsheet to the database
         for i in van_count:
 
             Van.van_number = vans[i]
@@ -295,6 +303,7 @@ def vans_page():
 
     return render_template('vans.html', data=data)
 
+# Add route to individual van info pages
 # @app.route('/van/<van_number>')
 # def get_van(van_number):
 #     van = Van.query.get(van_number)

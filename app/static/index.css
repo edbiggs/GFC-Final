@@ -47,7 +47,7 @@ body{
     text-align: center;
     height: 100%;
     padding-top: 2%;
-    background-image: radial-gradient(farthest-corner at 60% 40%,   rgba(133, 86, 21, .9) 15%,rgba(51, 26, 6, .8)83%, rgba(255,255,255,1) 200%);
+    background-image: radial-gradient(farthest-corner at 60% 40%, rgba(133, 86, 21, .9) 15%,rgba(51, 26, 6, .8)83%, rgba(255,255,255,1) 200%);
     /* border: 2px solid green; */
 
 }
