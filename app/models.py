@@ -22,7 +22,7 @@ class User(db.Model, UserMixin):
         return True
 
     def get_id(self):
-        return self.email
+        return self.id
 
     def is_authenticated(self):
         return self.authenticated

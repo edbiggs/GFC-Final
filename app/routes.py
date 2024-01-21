@@ -32,6 +32,7 @@ meal_add_ons = [item for item in meal_dict[0].values()]
 
 
 @app.route('/', methods=["GET", "POST"])
+@login_required
 def home_page():
 
     # Imports menu data and saves it to PostGreSQLfor
@@ -91,6 +92,16 @@ def login_page():
 
     #Login page must be routed to from every entry point; must use sole admin account to access the app (I haven't done this yet)
     form = LoginForm()
+
+    # USE THIS TO CREATE ADMIN ACCOUNT!
+    # if User.query.count() == 0:
+    #     print('No users found! Creating admin account...')
+    #     user = User(username='admin', password='PUT_PASSWORD_HERE!')
+    #     db.session.add(user)
+    #     db.session.commit()
+    # else:
+    #     print('User(s) found!')
+
     if request.method == "POST":
         if form.validate():
             username = form.username.data
@@ -111,13 +122,13 @@ def login_page():
 
 
 @app.route('/logout')
-@login_required
 def logout_page():
     logout_user()
     return redirect(url_for('login_page'))
 
 
 @app.route('/vans/', methods=["GET", "POST"])
+@login_required
 def vans_page():
 
     #Creates lists to save 
@@ -358,6 +369,7 @@ def update():
 
 
 @app.route('/work_needed')
+@login_required
 def work_needed():
     vans = [van for van in Van.query.order_by(Van.van_number)]
     work_needed = {van.van_number:[] for van in vans}

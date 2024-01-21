@@ -9,106 +9,108 @@
     Van History
 </h2>
 
-    {% block scripts %}
-    <div id="table"></div>
-    <script>
-
-        const tableDiv = document.getElementById('table');
-
-        const editableCellAttributes = (data, row, col) => {
-          if (row) {
-            return {contentEditable: 'true', 'data-element-id': row.cells[0].data};
-          }
-          else {
-            return {};
-          }
-      };
-
-        new gridjs.Grid({
-        columns: [
-           
-          { id: 'database_id', name: 'ID'},
-          { id: 'van_number', name: 'Van #', 'attributes':editableCellAttributes, 'width':'10%'},
-          { id: 'milage', name: 'Last Milage', 'attributes':editableCellAttributes, 'width':'14%' },
-          { id: 'last_oil_change_date', name: 'Last Oil Change', 'attributes':editableCellAttributes, 'width':'16%' },
-          { id: 'last_oil_change_milage', name: 'Last Oil Change(Mi)', 'attributes':editableCellAttributes, 'width':'20%' }, 
-          { id: 'last_front_tire_change_date', name: 'Last Front Tire Change', 'attributes':editableCellAttributes, 'width':'22%' },
-          { id: 'last_rear_tire_change_date', name: 'Last Rear Tire Change', 'attributes':editableCellAttributes, 'width':'20%' },
-          { id: 'last_trans_fluid_change_milage', name: 'Last Trans Flush(Mi)', 'attributes':editableCellAttributes, 'width':'20%' },
-          { id: 'last_battery_change_date', name: 'Last Battery Change', 'attributes':editableCellAttributes, 'width':'20%' },
-          { id: 'last_air_filter_change_milage', name: 'Last Air Filter Change(Mi)', 'attributes':editableCellAttributes, 'width':'23%' },
-          { id: 'last_spark_plug_change_milage', name: 'Last Spark Plug Change(Mi)', 'attributes':editableCellAttributes, 'width':'24%' },
-          { id: 'last_coil_change_milage', name: 'Last Coil Change(Mi)', 'attributes':editableCellAttributes, 'width':'20%' },
-          { id: 'last_state_inspection_date', name: 'Last State Inspection', 'attributes':editableCellAttributes, 'width':'20%' },
-          { id: 'last_registration_renewal_date', name: 'Last Registration Renewal', 'attributes':editableCellAttributes, 'width':'24%' },
-          { id: 'last_front_brake_change_milage', name: 'Last Front Brake Change(Mi)', 'attributes':editableCellAttributes, 'width':'25%' },
-          { id: 'last_rear_brake_change_milage', name: 'Last Rear Brake Change(Mi)', 'attributes':editableCellAttributes, 'width':'24%' },
-          { id: 'plate', name: 'Plate #', 'attributes':editableCellAttributes, 'width':'11%' },
-          { id: 'vin', name: 'VIN #', 'attributes':editableCellAttributes, 'width':'10%' },
-          { id: 'van_model', name: 'Model', 'attributes':editableCellAttributes,'width':'10%' },
-          { id: 'notes', name: 'Notes', 'attributes':editableCellAttributes, 'width':'10%' },
-          { id: 'active', name: 'Active', 'attributes':editableCellAttributes, 'width':'10%' },
-            
-        ],
-        search: true,
-        sort: true,
-        pagination: true,
-        resizable: true,
-        fixedHeader: true,
-        server: {
-          url: '/data',
-          then: results => results.data,
-        },
-        
-        
-      }).render(tableDiv);
-
-      let savedValue;
-
-      tableDiv.addEventListener('focusin', e => {
-        console.log(e.path)
-        console.log(e.target)
-        if (e.target.tagName === 'TD') {
-          savedValue = e.target.textContent;
-          console.log(savedValue)
-        }
-      });
-
-      tableDiv.addEventListener('focusout', e => {
-        if (e.target.tagName === 'TD') {
-          if (savedValue !== e.target.textContent) {
-            fetch('/data', {
-              method: 'POST',
-              headers: {'Content-Type': 'application/json'},
-              body: JSON.stringify({
-                id: e.composedPath()[1].children[0].textContent,
-                [e.target.dataset.columnId]: e.target.textContent
-              }),
-            });
-          }
-          savedValue = undefined;
-        }
-      });
-
-      tableDiv.addEventListener('keydown', e => {
-        if (e.target.tagName === 'TD') {
-          if (e.key === 'Escape') {
-            e.target.textContent = savedValue;
-            console.log('escape!')
-            e.target.blur();
-          }
-          else if (e.key === 'Enter') {
-            e.preventDefault();
-            console.log('enter!')
-            e.target.blur();
-          }
-        }
-      });
-    </script>
- 
-    {%endblock%}
+    
         
     {% endblock %}
     {% block content_ua %}
     
 {% endblock %}
+
+{% block scripts %}
+<div id="table"></div>
+<script>
+
+  const tableDiv = document.getElementById('table');
+
+  const editableCellAttributes = (data, row, col) => {
+    if (row) {
+      return { contentEditable: 'true', 'data-element-id': row.cells[0].data };
+    }
+    else {
+      return {};
+    }
+  };
+
+  new gridjs.Grid({
+    columns: [
+
+      { id: 'database_id', name: 'ID' },
+      { id: 'van_number', name: 'Van #', 'attributes': editableCellAttributes, 'width': '10%' },
+      { id: 'milage', name: 'Last Milage', 'attributes': editableCellAttributes, 'width': '14%' },
+      { id: 'last_oil_change_date', name: 'Last Oil Change', 'attributes': editableCellAttributes, 'width': '16%' },
+      { id: 'last_oil_change_milage', name: 'Last Oil Change(Mi)', 'attributes': editableCellAttributes, 'width': '20%' },
+      { id: 'last_front_tire_change_date', name: 'Last Front Tire Change', 'attributes': editableCellAttributes, 'width': '22%' },
+      { id: 'last_rear_tire_change_date', name: 'Last Rear Tire Change', 'attributes': editableCellAttributes, 'width': '20%' },
+      { id: 'last_trans_fluid_change_milage', name: 'Last Trans Flush(Mi)', 'attributes': editableCellAttributes, 'width': '20%' },
+      { id: 'last_battery_change_date', name: 'Last Battery Change', 'attributes': editableCellAttributes, 'width': '20%' },
+      { id: 'last_air_filter_change_milage', name: 'Last Air Filter Change(Mi)', 'attributes': editableCellAttributes, 'width': '23%' },
+      { id: 'last_spark_plug_change_milage', name: 'Last Spark Plug Change(Mi)', 'attributes': editableCellAttributes, 'width': '24%' },
+      { id: 'last_coil_change_milage', name: 'Last Coil Change(Mi)', 'attributes': editableCellAttributes, 'width': '20%' },
+      { id: 'last_state_inspection_date', name: 'Last State Inspection', 'attributes': editableCellAttributes, 'width': '20%' },
+      { id: 'last_registration_renewal_date', name: 'Last Registration Renewal', 'attributes': editableCellAttributes, 'width': '24%' },
+      { id: 'last_front_brake_change_milage', name: 'Last Front Brake Change(Mi)', 'attributes': editableCellAttributes, 'width': '25%' },
+      { id: 'last_rear_brake_change_milage', name: 'Last Rear Brake Change(Mi)', 'attributes': editableCellAttributes, 'width': '24%' },
+      { id: 'plate', name: 'Plate #', 'attributes': editableCellAttributes, 'width': '11%' },
+      { id: 'vin', name: 'VIN #', 'attributes': editableCellAttributes, 'width': '10%' },
+      { id: 'van_model', name: 'Model', 'attributes': editableCellAttributes, 'width': '10%' },
+      { id: 'notes', name: 'Notes', 'attributes': editableCellAttributes, 'width': '10%' },
+      { id: 'active', name: 'Active', 'attributes': editableCellAttributes, 'width': '10%' },
+
+    ],
+    search: true,
+    sort: true,
+    pagination: true,
+    resizable: true,
+    fixedHeader: true,
+    server: {
+      url: '/data',
+      then: results => results.data,
+    },
+
+
+  }).render(tableDiv);
+
+  let savedValue;
+
+  tableDiv.addEventListener('focusin', e => {
+    console.log(e.path)
+    console.log(e.target)
+    if (e.target.tagName === 'TD') {
+      savedValue = e.target.textContent;
+      console.log(savedValue)
+    }
+  });
+
+  tableDiv.addEventListener('focusout', e => {
+    if (e.target.tagName === 'TD') {
+      if (savedValue !== e.target.textContent) {
+        fetch('/data', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: e.composedPath()[1].children[0].textContent,
+            [e.target.dataset.columnId]: e.target.textContent
+          }),
+        });
+      }
+      savedValue = undefined;
+    }
+  });
+
+  tableDiv.addEventListener('keydown', e => {
+    if (e.target.tagName === 'TD') {
+      if (e.key === 'Escape') {
+        e.target.textContent = savedValue;
+        console.log('escape!')
+        e.target.blur();
+      }
+      else if (e.key === 'Enter') {
+        e.preventDefault();
+        console.log('enter!')
+        e.target.blur();
+      }
+    }
+  });
+</script>
+
+{%endblock%}
