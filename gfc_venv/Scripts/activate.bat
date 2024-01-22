@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\edbig\Documents\Coding Temple\Week12\Day3\GFC Flask Test\gfc_venv
+set VIRTUAL_ENV=C:\Users\edbig\Documents\Projects\GFC-Final\gfc_venv
 
 if not defined PROMPT set PROMPT=$P$G
 
