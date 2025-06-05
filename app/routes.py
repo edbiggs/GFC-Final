@@ -114,9 +114,9 @@ def login_page():
                     login_user(user)
                     return redirect(url_for('home_page'))
                 else:
-                    print("Error: Username or password invalid")
+                    flash("Invalid credentials", "error")
             else:
-                print(f"Could not find user {user}")
+                flash("Invalid credentials", "error")
 
     return render_template('login.html', form=form)
 
