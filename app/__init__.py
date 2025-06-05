@@ -4,6 +4,8 @@ from flask_migrate import Migrate
 from app.models import db, User
 from flask_login import LoginManager
 import pandas as pd
+import subprocess
+import sys
 
 app = Flask(__name__, template_folder='templates')
 app.config.from_object(Config)
@@ -19,6 +21,6 @@ def load_user(user_id):
 
 login_manager.login_view='login_page'
 
-from . import routes, models
+from . import routes, models, utils
 
     
